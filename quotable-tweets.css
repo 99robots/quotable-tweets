@@ -1,0 +1,101 @@
+.nnr-qt-container,
+.nnr-qt-container *,
+.nnr-qt-container:after,
+.nnr-qt-container:before {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.nnr-qt-title-container,
+.nnr-qt-text-container,
+div.nnr-qt-container a.nnr-qt-button {
+	width: 100%;
+	color: white;
+}
+
+.nnr-qt-title-container {
+	background: #3995da;
+	display: table;
+	padding: 27px 30px;
+	line-height: 1.2;
+	font-size: 16px;
+	font-weight: 700;
+	font-style: normal;
+	text-align: center;
+}
+
+.nnr-qt-title {
+	font-size: 14px;
+	line-height: 22px;
+	display: table-cell;
+	color: #fff;
+	font-weight: 600;
+	vertical-align: middle;
+	padding-left: 10px;
+}
+
+.nnr-qt-icon-twitter {
+	background-image: url('twitter-icon.png');
+	background-size: cover;
+	display: inline-block;
+	width: 50px;
+	height: 41px;
+}
+
+.nnr-qt-text-container {
+	background-color: #55acee;
+	padding: 10%;
+	background-repeat: no-repeat;
+	background-position: 90% 90%;
+}
+
+div.nnr-qt-container p.nnr-qt-post-title,
+div.nnr-qt-container p.nnr-qt-post-link {
+	font-size: 16px;
+	line-height: 28px;
+	color: #fff;
+	width: 100%;
+	margin-bottom: 0px;
+}
+
+div.nnr-qt-container p.nnr-qt-post-link {
+	text-decoration: underline;
+	font-size: 14px;
+}
+
+div.nnr-qt-container p.nnr-qt-quote-container {
+	text-align: right;
+	width: 100%;
+	opacity: 0.25;
+	margin-bottom: 0px;
+	position: relative;
+	top: -30px;
+	right: 55px;
+}
+
+.nnr-qt-quote {
+	font-size: 60px;
+	position: absolute;
+	text-align: right;
+}
+
+div.nnr-qt-container a.nnr-qt-button {
+	background-color: #6fbdf8;
+	text-align: center;
+	display: block;
+	font-weight: 600;
+	padding: 20px 0;
+	text-decoration: none;
+}
+
+div.nnr-qt-container a.nnr-qt-button:hover {
+	text-decoration: underline;
+}
+
+div.nnr-qt-container a.nnr-qt-button:visited,
+div.nnr-qt-container a.nnr-qt-button:hover,
+div.nnr-qt-container a.nnr-qt-button:focus,
+div.nnr-qt-container a.nnr-qt-button:active {
+	color: white;
+}
