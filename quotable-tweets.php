@@ -2,7 +2,7 @@
 /*
 Plugin Name: Quotable Tweets
 plugin URI: http://99robots.com/quotale-tweets
-Description:
+Description: The Quotable Tweets plugin gives you an easy way to add a beautiful actionable tweet link to your sidebar.
 version: 1.0.0
 Author: 99 Robots
 Author URI: http://99robots.com
@@ -180,7 +180,7 @@ class NNRobots_Quotable_Tweets extends WP_Widget {
 
 		$post_link = wp_get_shortlink($post->ID);
 
-		if (isset($post_link) || empty($post_link) || !$post_link) {
+		if ( !isset($post_link) || empty($post_link) || !$post_link ) {
 			$post_link = get_permalink($post->ID);
 		}
 
