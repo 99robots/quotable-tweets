@@ -1,52 +1,41 @@
 <?php
-/*
-Plugin Name: Quotable Tweets
-plugin URI: http://99robots.com/quotale-tweets
-Description: The Quotable Tweets plugin gives you an easy way to add a beautiful actionable tweet link to your sidebar.
-version: 1.1.1
-Author: 99 Robots
-Author URI: http://99robots.com
-License: GPL2
-*/
+/**
+ * Plugin Name: Quotable Tweets
+ * Plugin URI: http://99robots.com/quotale-tweets
+ * Description: The Quotable Tweets plugin gives you an easy way to add a beautiful actionable tweet link to your sidebar.
+ * Version: 1.1.2
+ * Author: 99 Robots
+ * Author URI: http://99robots.com
+ * License: GPL2
+ */
 
-// Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) exit;
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 
 /**
  * Global Definitions
  */
 
-/* Plugin Name */
+// Plugin Name
+if ( ! defined( 'NNROBOTS_QUOTABLE_TWEETS_PLUGIN_NAME' ) ) {
+	define( 'NNROBOTS_QUOTABLE_TWEETS_PLUGIN_NAME', trim( dirname( plugin_basename( __FILE__ ) ), '/' ) );
+}
 
-if (!defined('NNROBOTS_QUOTABLE_TWEETS_PLUGIN_NAME'))
-    define('NNROBOTS_QUOTABLE_TWEETS_PLUGIN_NAME', trim(dirname(plugin_basename(__FILE__)), '/'));
-
-/* Plugin directory */
-
-if (!defined('NNROBOTS_QUOTABLE_TWEETS_PLUGIN_DIR'))
-    define('NNROBOTS_QUOTABLE_TWEETS_PLUGIN_DIR', WP_PLUGIN_DIR . '/' . NNROBOTS_QUOTABLE_TWEETS_PLUGIN_NAME);
-
-/* Plugin url */
-
-if (!defined('NNROBOTS_QUOTABLE_TWEETS_PLUGIN_URL'))
-    define('NNROBOTS_QUOTABLE_TWEETS_PLUGIN_URL', WP_PLUGIN_URL . '/' . NNROBOTS_QUOTABLE_TWEETS_PLUGIN_NAME);
-
-/* Plugin verison */
-
-if (!defined('NNROBOTS_QUOTABLE_TWEETS_VERSION_NUM'))
-    define('NNROBOTS_QUOTABLE_TWEETS_VERSION_NUM', '1.1.1');
+// Plugin directory
+if ( ! defined( 'NNROBOTS_QUOTABLE_TWEETS_PLUGIN_DIR' ) ) {
+	define( 'NNROBOTS_QUOTABLE_TWEETS_PLUGIN_DIR', WP_PLUGIN_DIR . '/' . NNROBOTS_QUOTABLE_TWEETS_PLUGIN_NAME );
+}
 
 // Hooks / Filters
-
-add_shortcode('nnr_related_posts', 								'nnr_related_posts_shortcode');
-register_activation_hook( __FILE__, 							array('NNRobots_Quotable_Tweets', 'register_activation'));
-add_action( 'init', 											array('NNRobots_Quotable_Tweets', 'load_textdomain'));
-add_filter("plugin_action_links_" . plugin_basename(__FILE__), 	array('NNRobots_Quotable_Tweets', 'settings_link'));
+add_action( 'init', 												array( 'NNRobots_Quotable_Tweets', 'load_textdomain' ) );
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 	array( 'NNRobots_Quotable_Tweets', 'settings_link' ) );
 
 // Register the Widget
 
-add_action( 'widgets_init', function(){
-     register_widget( 'NNRobots_Quotable_Tweets' );
+add_action( 'widgets_init', function() {
+	register_widget( 'NNRobots_Quotable_Tweets' );
 });
 
 /**
@@ -57,17 +46,6 @@ add_action( 'widgets_init', function(){
  */
 
 class NNRobots_Quotable_Tweets extends WP_Widget {
-
-	/**
-	 * text_domain
-	 *
-	 * (default value: 'quotable-tweets')
-	 *
-	 * @var string
-	 * @access public
-	 * @static
-	 */
-	static $text_domain = 'quotable-tweets';
 
 	/**
 	 * prefix
@@ -107,23 +85,19 @@ class NNRobots_Quotable_Tweets extends WP_Widget {
 	 * @since 1.0.0
 	 */
 	static function load_textdomain() {
-		load_plugin_textdomain(self::$text_domain, false, NNROBOTS_QUOTABLE_TWEETS_PLUGIN_DIR . '/languages');
-	}
 
-	/**
-	 * Hooks to 'register_activation_hook'
-	 *
-	 * @since 1.0.0
-	 */
-	static function register_activation() {
+		$locale = apply_filters( 'plugin_locale', get_locale(), 'quotable-tweets' );
 
-		/* Check if multisite, if so then save as site option */
+		load_textdomain(
+			'quotable-tweets',
+			WP_LANG_DIR . '/quotable-tweets/quotable-tweets-' . $locale . '.mo'
+		);
 
-		if (function_exists("is_multisite") && is_multisite()) {
-			add_site_option(self::$prefix . 'version', NNROBOTS_QUOTABLE_TWEETS_VERSION_NUM);
-		} else {
-			add_option(self::$prefix . 'version', NNROBOTS_QUOTABLE_TWEETS_VERSION_NUM);
-		}
+		load_plugin_textdomain(
+			'quotable-tweets',
+			false,
+			NNROBOTS_QUOTABLE_TWEETS_PLUGIN_DIR . '/languages/'
+		);
 	}
 
 	/**
@@ -131,10 +105,10 @@ class NNRobots_Quotable_Tweets extends WP_Widget {
 	 *
 	 * @since 1.0.0
 	 */
-	static function settings_link($links) {
+	static function settings_link( $links ) {
 
 		$widget_link = '<a href="widgets.php">Widget</a>';
-		array_unshift($links, $widget_link);
+		array_unshift( $links, $widget_link );
 
 		return $links;
 	}
@@ -143,10 +117,11 @@ class NNRobots_Quotable_Tweets extends WP_Widget {
 	 * Register widget with WordPress.
 	 */
 	function __construct() {
+
 		parent::__construct(
-			$base_id,
-			__( 'Quotable Tweets', self::$text_domain ),
-			array( 'description' => __( 'Beautiful way to display an actionable tweet.', self::$text_domain ), )
+			'quotable_tweets',
+			esc_html__( 'Quotable Tweets', 'quotable-tweets' ),
+			array( 'description' => esc_html__( 'Beautiful way to display an actionable tweet.', 'quotable-tweets' ) )
 		);
 	}
 
@@ -162,7 +137,7 @@ class NNRobots_Quotable_Tweets extends WP_Widget {
 
 		// Do not display if not a single post
 
-		if ( !is_singular() ) {
+		if ( ! is_singular() ) {
 			return false;
 		}
 
@@ -171,62 +146,60 @@ class NNRobots_Quotable_Tweets extends WP_Widget {
 		echo $args['before_widget'];
 
 		// Title
-
 		if ( empty( $instance['title'] ) ) {
-			$instance['title'] = __( 'Share this article!', self::$text_domain );
+			$instance['title'] = esc_html__( 'Share this article!', 'quotable-tweets' );
 		}
 
 		// Bitly access token
-
-		$post_link = wp_get_shortlink($post->ID);
-
-		if ( !isset($post_link) || empty($post_link) || !$post_link ) {
-			$post_link = get_permalink($post->ID);
+		$post_link = wp_get_shortlink( $post->ID );
+		if ( ! isset( $post_link ) || empty( $post_link ) || ! $post_link ) {
+			$post_link = get_permalink( $post->ID );
 		}
 
-		if ( !empty( $instance['bitly_access_token'] ) ) {
-			$instance['title'] = __( 'Share this article!', self::$text_domain );
+		if ( ! empty( $instance['bitly_access_token'] ) ) {
+			$instance['title'] = esc_html__( 'Share this article!', 'quotable-tweets' );
 
 			$ch = curl_init();
-			curl_setopt ($ch, CURLOPT_URL, 'https://api-ssl.bitly.com/v3/shorten?access_token=' . $instance['bitly_access_token'] . '&longUrl=' . urlencode($post_link) . '&format=json');
-			curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
-			$result = curl_exec($ch);
-			curl_close($ch);
+			curl_setopt( $ch, CURLOPT_URL, 'https://api-ssl.bitly.com/v3/shorten?access_token=' . $instance['bitly_access_token'] . '&longUrl=' . urlencode( $post_link ) . '&format=json' );
+			curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+			$result = curl_exec( $ch );
+			curl_close( $ch );
 
-			if (isset(json_decode($result)->data->url)) {
-				$post_link = json_decode($result)->data->url;
+			$result = json_decode( $result );
+
+			if ( isset( $result->data->url ) ) {
+				$post_link = $result->data->url;
 			}
 		}
 
 		// Button Text
-
 		if ( empty( $instance['button_text'] ) ) {
-			$instance['button_text'] = __( 'Tweet', self::$text_domain );
+			$instance['button_text'] = esc_html__( 'Tweet', 'quotable-tweets' );
 		}
 
 		?>
-		<div class="<?php echo self::$prefix_dash; ?>container">
+		<div class="<?php echo self::$prefix_dash ?>container">
 
-			<div class="<?php echo self::$prefix_dash; ?>title-container">
-				<span aria-hidden="true" class="<?php echo self::$prefix_dash; ?>icon-twitter"></span>
-				<span class="<?php echo self::$prefix_dash; ?>title"><?php echo $instance['title']; ?></span>
+			<div class="<?php echo self::$prefix_dash ?>title-container">
+				<span aria-hidden="true" class="<?php echo self::$prefix_dash ?>icon-twitter"></span>
+				<span class="<?php echo self::$prefix_dash ?>title"><?php echo $instance['title']; ?></span>
 			</div>
 
-			<div class="<?php echo self::$prefix_dash; ?>text-container">
-				<p class="<?php echo self::$prefix_dash; ?>post-title"><?php echo $post->post_title; ?></p>
-				<p class="<?php echo self::$prefix_dash; ?>quote-container">
-					<span class="<?php echo self::$prefix_dash; ?>quote dashicons dashicons-format-quote"></span>
+			<div class="<?php echo self::$prefix_dash ?>text-container">
+				<p class="<?php echo self::$prefix_dash ?>post-title"><?php echo $post->post_title; ?></p>
+				<p class="<?php echo self::$prefix_dash ?>quote-container">
+					<span class="<?php echo self::$prefix_dash ?>quote dashicons dashicons-format-quote"></span>
 				</p>
 			</div>
 
-			<a class="<?php echo self::$prefix_dash; ?>button" href="https://twitter.com/intent/tweet?text=<?php echo htmlentities($post->post_title . ' ' . $post_link); ?>">
-				<?php echo $instance['button_text']; ?>
+			<a class="<?php echo self::$prefix_dash ?>button" href="https://twitter.com/intent/tweet?text=<?php echo htmlentities( $post->post_title . ' ' . $post_link ) ?>">
+				<?php echo $instance['button_text'] ?>
 			</a>
 
 		</div>
 		<?php
 
-		wp_enqueue_style( self::$prefix . 'css', plugins_url('quotable-tweets.css', __FILE__));
+		wp_enqueue_style( self::$prefix . 'css', plugins_url( 'quotable-tweets.css', __FILE__ ) );
 		wp_enqueue_style( 'dashicons' );
 
 		echo $args['after_widget'];
@@ -240,27 +213,26 @@ class NNRobots_Quotable_Tweets extends WP_Widget {
 	 * @param array $instance Previously saved values from database.
 	 */
 	public function form( $instance ) {
-		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Share this article!', self::$text_domain );
+		$title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'Share this article!', 'quotable-tweets' );
 		$bitly_access_token = ! empty( $instance['bitly_access_token'] ) ? $instance['bitly_access_token'] : '';
-		$button_text = ! empty( $instance['button_text'] ) ? $instance['button_text'] : __( 'Tweet', self::$text_domain );
-
+		$button_text = ! empty( $instance['button_text'] ) ? $instance['button_text'] : esc_html__( 'Tweet', 'quotable-tweets' );
 		?>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', self::$text_domain ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title:', 'quotable-tweets' ); ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>"><br/>
-			<em><?php _e( 'The title of the widget', self::$text_domain ); ?></em>
+			<em><?php esc_html_e( 'The title of the widget', 'quotable-tweets' ); ?></em>
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'bitly_access_token' ); ?>"><?php _e( 'Bitly Access Token:', self::$text_domain ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'bitly_access_token' ); ?>"><?php esc_html_e( 'Bitly Access Token:', 'quotable-tweets' ); ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id( 'bitly_access_token' ); ?>" name="<?php echo $this->get_field_name( 'bitly_access_token' ); ?>" type="text" value="<?php echo esc_attr( $bitly_access_token ); ?>"><br/>
-			<em><?php _e("Insert your Bitly", self::$text_domain); ?> <a href="https://bitly.com/a/oauth_apps" target="_blank"> <?php _e('access token', self::$text_domain); ?></a> <?php _e("here. This is optional and will shorten post links in the tweet.", self::$text_domain); ?></em>
+			<em><?php esc_html_e( 'Insert your Bitly', 'quotable-tweets' ) ?> <a href="https://bitly.com/a/oauth_apps" target="_blank"> <?php esc_html_e( 'access token', 'quotable-tweets' ) ?></a> <?php esc_html_e( 'here. This is optional and will shorten post links in the tweet.', 'quotable-tweets' ) ?></em>
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'button_text' ); ?>"><?php _e( 'Button Text:', self::$text_domain ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'button_text' ); ?>"><?php esc_html_e( 'Button Text:', 'quotable-tweets' ); ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id( 'button_text' ); ?>" name="<?php echo $this->get_field_name( 'button_text' ); ?>" type="text" value="<?php echo esc_attr( $button_text ); ?>"><br/>
-			<em><?php _e( 'The text of the Tweet button.', self::$text_domain ); ?></em>
+			<em><?php esc_html_e( 'The text of the Tweet button.', 'quotable-tweets' ); ?></em>
 		</p>
 		<?php
 	}
