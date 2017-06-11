@@ -3,7 +3,7 @@
 Plugin Name: Quotable Tweets
 plugin URI: http://99robots.com/quotale-tweets
 Description: The Quotable Tweets plugin gives you an easy way to add a beautiful actionable tweet link to your sidebar.
-version: 1.1.0
+version: 1.1.1
 Author: 99 Robots
 Author URI: http://99robots.com
 License: GPL2
@@ -34,7 +34,7 @@ if (!defined('NNROBOTS_QUOTABLE_TWEETS_PLUGIN_URL'))
 /* Plugin verison */
 
 if (!defined('NNROBOTS_QUOTABLE_TWEETS_VERSION_NUM'))
-    define('NNROBOTS_QUOTABLE_TWEETS_VERSION_NUM', '1.1.0');
+    define('NNROBOTS_QUOTABLE_TWEETS_VERSION_NUM', '1.1.1');
 
 // Hooks / Filters
 
