@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Quotable Tweets
- * Plugin URI: http://99robots.com/quotale-tweets
+ * Plugin URI: http://draftpress.com/quotale-tweets
  * Description: The Quotable Tweets plugin gives you an easy way to add a beautiful actionable tweet link to your sidebar.
- * Version: 1.1.3
+ * Version: 1.1.4
  * Author: 99 Robots
- * Author URI: http://99robots.com
+ * Author URI: http://draftpress.com
  * License: GPL2
  */
 
