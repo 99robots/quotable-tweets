@@ -3,13 +3,8 @@ Contributors: 99robots, charliepatel, draftpress
 Donate link:
 Tags: quotable tweet, tweet, tweet button, twitter, tweet ad, tweet cards
 Requires at least: 4.5
-<<<<<<< Updated upstream
-Tested up to: 5.5.1
-Stable tag: 1.1.5
-=======
 Tested up to: 5.7.2
 Stable tag: 1.1.6
->>>>>>> Stashed changes
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,12 +30,9 @@ Contribute to the plugin and submit pull requests through the [Quotable Tweets p
 
 == Changelog ==
 
-<<<<<<< Updated upstream
-=======
-= 1.1.6 = 2021-05-14
+= 1.1.6 = 2021-05-17
 * Made compatible with WordPress 5.7.2
 
->>>>>>> Stashed changes
 = 1.1.5 = 2020-09-14
 * Made compatible with WordPress 5.5.1
 
