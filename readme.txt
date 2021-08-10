@@ -1,10 +1,10 @@
 === Quotable Tweets by 99 Robots ===
-Contributors: 99robots, charliepatel, draftpress
+Contributors: 99robots, charliepatel, DraftPress
 Donate link:
 Tags: quotable tweet, tweet, tweet button, twitter, tweet ad, tweet cards
 Requires at least: 4.5
-Tested up to: 5.7.2
-Stable tag: 1.1.6
+Tested up to: 5.8
+Stable tag: 1.1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,6 +29,9 @@ Contribute to the plugin and submit pull requests through the [Quotable Tweets p
 1. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+
+= 1.1.7 = 2021-07-11
+* Made compatible with WordPress 5.8
 
 = 1.1.6 = 2021-05-17
 * Made compatible with WordPress 5.7.2
