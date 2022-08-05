@@ -3,8 +3,8 @@ Contributors: 99robots, charliepatel, DraftPress
 Donate link:
 Tags: quotable tweet, tweet, tweet button, twitter, tweet ad, tweet cards
 Requires at least: 4.9
-Tested up to: 5.8.1
-Stable tag: 1.1.7
+Tested up to: 6.0.1
+Stable tag: 1.1.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,6 +29,9 @@ Contribute to the plugin and submit pull requests through the [Quotable Tweets p
 1. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+
+= 1.1.8 = 2022-08-05
+* Made compatible with WordPress 6.0.1
 
 = 1.1.7 = 2021-09-16
 * Made compatible with WordPress 5.8.1
