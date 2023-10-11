@@ -1,5 +1,5 @@
 === Quotable Tweets by DraftPress ===
-Contributors: 99robots, charliepatel, DraftPress
+Contributor: 99robots, charliepatel, DraftPress
 Donate link:
 Tags: quotable tweet, tweet, tweet button, twitter, tweet ad, tweet cards
 Requires at least: 4.9
