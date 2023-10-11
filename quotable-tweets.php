@@ -3,10 +3,17 @@
  * Plugin Name: Quotable Tweets
  * Plugin URI: https://draftpress.com/products
  * Description: The Quotable Tweets plugin gives you an easy way to add a beautiful actionable tweet link to your sidebar.
- * Version: 1.1.7
+ * Version: 1.1.8
  * Author: DraftPress
  * Author URI: https://draftpress.com
  * License: GPL2
+ * php version: 7.0
+ * 
+ * @category Plugin
+ * @package  QuotableTweets
+ * @author   DraftPress <john.doe@example.com>
+ * @license  GPL2
+ * @link     https://draftpress.com/products
  */
 
 // If this file is called directly, abort.
@@ -19,8 +26,11 @@ if (!defined("WPINC")) {
  */
 
 // Plugin Name
-if ( ! defined( 'NNROBOTS_QUOTABLE_TWEETS_PLUGIN_NAME' ) ) {
-	define( 'NNROBOTS_QUOTABLE_TWEETS_PLUGIN_NAME', trim( dirname( plugin_basename( __FILE__ ) ), '/' ) );
+if (!defined('NNROBOTS_QUOTABLE_TWEETS_PLUGIN_NAME')) {
+    define(
+        'NNROBOTS_QUOTABLE_TWEETS_PLUGIN_NAME', 
+        trim(dirname(plugin_basename(__FILE__)), '/')
+    );
 }
 
 // Plugin directory
@@ -32,11 +42,14 @@ if (!defined("NNROBOTS_QUOTABLE_TWEETS_PLUGIN_DIR")) {
 }
 
 // Hooks / Filters
-add_action("init", ["NNRobots_Quotable_Tweets", "load_textdomain"]);
-add_filter("plugin_action_links_" . plugin_basename(__FILE__), [
-    "NNRobots_Quotable_Tweets",
-    "settings_link",
-]);
+add_action("init", ["NNRobots_Quotable_Tweets", "loadTextDomain"]);
+add_filter(
+    "plugin_action_links_" . plugin_basename(__FILE__),
+    [
+        "NNRobots_Quotable_Tweets",
+        "settings_link",
+    ]
+);
 
 // Register the Widget
 add_action("widgets_init", function () {
@@ -44,52 +57,65 @@ add_action("widgets_init", function () {
 });
 
 /**
- *  NNRobots_Quotable_Tweets main class
- *
- * @since 1.0.0
- * @using WordPress 3.8
+ * NNRobots_Quotable_Tweets main class
+ * 
+ * @category Class
+ * @package  QuotableTweets
+ * @author   DraftPress <john.doe@example.com>
+ * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
+ *           GNU General Public License 2
+ * @link     https://draftpress.com/products
+ * @since    1.0.0
+ * @using    WordPress 3.8
  */
+
+
 class NNRobots_Quotable_Tweets extends WP_Widget
 {
+
     /**
-     * prefix
+     * Prefix
      *
      * (default value: 'nnrobots_quotable_tweets_')
      *
-     * @var string
+     * @var    string
      * @access public
      * @static
      */
+
     public static $prefix = "nnrobots_quotable_tweets_";
 
     /**
-     * base_id
+     * Base ID.
      *
      * (default value: 'nnrobots_quotable_tweets')
      *
-     * @var string
+     * @var    string
      * @access public
      * @static
      */
     public static $base_id = "nnrobots_quotable_tweets";
 
     /**
-     * prefix_dash
+     * Prefix Dash
      *
      * (default value: 'nnrobots_related_posts_')
      *
-     * @var string
+     * @var    string
      * @access private
      * @static
      */
-    private static $prefix_dash = "nnr-qt-";
+    private static $_prefix_dash = "nnr-qt-";
 
     /**
      * Load the text domain
      *
-     * @since 1.0.0
+     * @since  1.0.0
+     * @return void
+     * 
      */
-    public static function load_textdomain()
+
+    public static function loadTextDomain()
     {
         $locale = apply_filters(
             "plugin_locale",
@@ -97,7 +123,7 @@ class NNRobots_Quotable_Tweets extends WP_Widget
             "quotable-tweets"
         );
 
-        load_textdomain(
+        loadTextDomain(
             "quotable-tweets",
             WP_LANG_DIR . "/quotable-tweets/quotable-tweets-" . $locale . ".mo"
         );
@@ -204,18 +230,18 @@ class NNRobots_Quotable_Tweets extends WP_Widget
             $instance["button_text"] = esc_html__("Tweet", "quotable-tweets");
         }
         ?>
-        <div class="<?php echo self::$prefix_dash; ?>container">
-            <div class="<?php echo self::$prefix_dash; ?>title-container">
-                <span aria-hidden="true" class="<?php echo self::$prefix_dash; ?>icon-twitter"></span>
-                <span class="<?php echo self::$prefix_dash; ?>title"> <?php echo $instance["title"]; ?> </span>
+        <div class="<?php echo self::$_prefix_dash; ?>container">
+            <div class="<?php echo self::$_prefix_dash; ?>title-container">
+                <span aria-hidden="true" class="<?php echo self::$_prefix_dash; ?>icon-twitter"></span>
+                <span class="<?php echo self::$_prefix_dash; ?>title"> <?php echo $instance["title"]; ?> </span>
             </div>
-            <div class="<?php echo self::$prefix_dash; ?>text-container">
-                <p class="<?php echo self::$prefix_dash; ?>post-title"> <?php echo $post->post_title; ?> </p>
-                <p class="<?php echo self::$prefix_dash; ?>quote-container">
-                    <span class="<?php echo self::$prefix_dash; ?>quote dashicons dashicons-format-quote"></span>
+            <div class="<?php echo self::$_prefix_dash; ?>text-container">
+                <p class="<?php echo self::$_prefix_dash; ?>post-title"> <?php echo $post->post_title; ?> </p>
+                <p class="<?php echo self::$_prefix_dash; ?>quote-container">
+                    <span class="<?php echo self::$_prefix_dash; ?>quote dashicons dashicons-format-quote"></span>
                 </p>
             </div>
-            <a class="<?php echo self::$prefix_dash; ?>button" href="https://twitter.com/intent/tweet?text=<?php echo htmlentities($post->post_title . " " . $post_link); ?>"> <?php echo $instance["button_text"]; ?> </a>
+            <a class="<?php echo self::$_prefix_dash; ?>button" href="https://twitter.com/intent/tweet?text=<?php echo htmlentities($post->post_title . " " . $post_link); ?>"> <?php echo $instance["button_text"]; ?> </a>
         </div>
         <?php
         wp_enqueue_style(self::$prefix . "css", plugins_url("quotable-tweets.css", __FILE__));
@@ -278,3 +304,5 @@ class NNRobots_Quotable_Tweets extends WP_Widget
         return $instance;
     }
 }
+
+?>
