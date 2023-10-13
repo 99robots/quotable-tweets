@@ -12,12 +12,11 @@
  *
  * @category Plugin
  * @package  QuotableTweets
- * @author   DraftPress <john.doe@example.com>
- * @license  GNU General Public License 2 
+ * @author   DraftPress <support@draftpress.com>
+ * @license  GNU General Public License 2
  * (https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
  * @link     https://draftpress.com/products
  */
-
 
 // If this file is called directly, abort.
 if (!defined("WPINC")) {
@@ -29,10 +28,10 @@ if (!defined("WPINC")) {
  */
 
 // Plugin Name
-if (!defined('NNROBOTS_QUOTABLE_TWEETS_PLUGIN_NAME')) {
+if (!defined("NNROBOTS_QUOTABLE_TWEETS_PLUGIN_NAME")) {
     define(
-        'NNROBOTS_QUOTABLE_TWEETS_PLUGIN_NAME', 
-        trim(dirname(plugin_basename(__FILE__)), '/')
+        "NNROBOTS_QUOTABLE_TWEETS_PLUGIN_NAME",
+        trim(dirname(plugin_basename(__FILE__)), "/")
     );
 }
 
@@ -47,7 +46,7 @@ if (!defined("NNROBOTS_QUOTABLE_TWEETS_PLUGIN_DIR")) {
 // Hooks / Filters
 add_action("init", ["NNRobots_Quotable_Tweets", "loadTextDomain"]);
 add_filter(
-    "plugin_action_links_" . plugin_basename(__FILE__),
+    "plugin_action_links_" . plugin_basename(__FILE__), 
     [
         "NNRobots_Quotable_Tweets",
         "settingsLink",
@@ -56,30 +55,26 @@ add_filter(
 
 // Register the Widget
 add_action(
-    "widgets_init",
-    function () {
+    "widgets_init", function () {
         register_widget("NNRobots_Quotable_Tweets");
     }
 );
 
-
 /**
  * NNRobots_Quotable_Tweets main class
- * 
+ *
  * @category Class
  * @package  QuotableTweets
- * @author   DraftPress <john.doe@example.com>
- * @license  GNU General Public License 2 
+ * @author   DraftPress <support@draftpress.com>
+ * @license  GNU General Public License 2
  * (https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
  * @link     https://draftpress.com/products
  * @since    1.0.0
  * @using    WordPress 3.8
  */
 
-
 class NNRobots_Quotable_Tweets extends WP_Widget
 {
-
     /**
      * Prefix
      *
@@ -129,10 +124,9 @@ class NNRobots_Quotable_Tweets extends WP_Widget
         );
 
         load_textdomain(
-            'quotable-tweets',
-            WP_LANG_DIR . '/quotable-tweets/quotable-tweets-' . $locale . '.mo'
+            "quotable-tweets",
+            WP_LANG_DIR . "/quotable-tweets/quotable-tweets-" . $locale . ".mo"
         );
-        
 
         load_plugin_textdomain(
             "quotable-tweets",
@@ -141,10 +135,9 @@ class NNRobots_Quotable_Tweets extends WP_Widget
         );
     }
 
-    
     /**
      * Hooks to 'plugin_action_links_' filter.
-     * 
+     *
      * @param array $links An array of plugin action links.
      *
      * @since 1.0.0
@@ -262,16 +255,17 @@ class NNRobots_Quotable_Tweets extends WP_Widget
                 </p>
             </div>
             <a class="<?php echo self::$_prefix_dash; ?>button"
-            href="https://twitter.com/intent/tweet?text=<?php
-                echo htmlentities($post->post_title . " " . $post_link);
-            ?>">
+            href="https://twitter.com/intent/tweet?text=
+            <?php echo htmlentities(
+                $post->post_title . " " . $post_link
+            ); ?>">
             <?php echo $instance["button_text"]; ?>
             </a>
 
         </div>
         <?php
         wp_enqueue_style(
-            self::$prefix . "css", 
+            self::$prefix . "css",
             plugins_url("quotable-tweets.css", __FILE__)
         );
         wp_enqueue_style("dashicons");
@@ -279,8 +273,6 @@ class NNRobots_Quotable_Tweets extends WP_Widget
         echo $args["after_widget"];
     }
 
-   
-  
     /**
      * Back-end widget form.
      *
@@ -292,29 +284,45 @@ class NNRobots_Quotable_Tweets extends WP_Widget
      */
     public function form($instance)
     {
-        $title = !empty($instance["title"]) ? 
-        $instance["title"] : esc_html__("Share this article!", "quotable-tweets");
-        $bitly_access_token = !empty($instance["bitly_access_token"]) ? 
-        $instance["bitly_access_token"] : "";
-        $button_text = !empty($instance["button_text"]) ? 
-        $instance["button_text"] : esc_html__("Tweet", "quotable-tweets");
+        $title = !empty($instance["title"])
+            ? $instance["title"]
+            : esc_html__("Share this article!", "quotable-tweets");
+        $bitly_access_token = !empty($instance["bitly_access_token"])
+            ? $instance["bitly_access_token"]
+            : "";
+        $button_text = !empty($instance["button_text"])
+            ? $instance["button_text"]
+            : esc_html__("Tweet", "quotable-tweets");
         ?>
         <p>
-            <label for="<?php echo $this->get_field_id("title"); ?>"> 
+            <label for="
+            <?php echo $this->get_field_id("title"); ?>"> 
             <?php esc_html_e("Title:", "quotable-tweets"); ?> </label>
-            <input class="widefat" id="<?php echo $this->get_field_id("title"); ?>" 
+            <input class="widefat" id="
+            <?php echo $this->get_field_id(
+                "title"
+            ); ?>" 
             name="<?php echo $this->get_field_name("title"); ?>" type="text" 
             value="<?php echo esc_attr($title); ?>">
             <br />
             <em>
-                <?php esc_html_e("The title of the widget", "quotable-tweets"); ?>
+                <?php esc_html_e(
+                    "The title of the widget",
+                    "quotable-tweets"
+                ); ?>
             </em>
 
 
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id("bitly_access_token"); ?>"> 
-            <?php esc_html_e("Bitly Access Token:", "quotable-tweets"); ?> </label>
+            <label for="
+            <?php echo $this->get_field_id(
+                "bitly_access_token"
+            ); ?>"> 
+            <?php esc_html_e(
+                "Bitly Access Token:",
+                "quotable-tweets"
+            ); ?> </label>
             <input class="widefat" 
             id="<?php echo $this->get_field_id("bitly_access_token"); ?>" 
             name="<?php echo $this->get_field_name("bitly_access_token"); ?>" 
@@ -344,7 +352,7 @@ class NNRobots_Quotable_Tweets extends WP_Widget
             <br />
             <em> 
                 <?php esc_html_e(
-                    "The text of the Tweet button.", 
+                    "The text of the Tweet button.",
                     "quotable-tweets"
                 ); ?> 
             </em>
@@ -365,14 +373,18 @@ class NNRobots_Quotable_Tweets extends WP_Widget
     public function update($new_instance, $old_instance)
     {
         $instance = [];
-        $instance["title"] = !empty($new_instance["title"]) 
-        ? strip_tags($new_instance["title"]) : "";
-        $instance["bitly_access_token"] =!empty($new_instance["bitly_access_token"]) 
-        ? strip_tags($new_instance["bitly_access_token"]) 
-        : "";
+        $instance["title"] = !empty($new_instance["title"])
+            ? strip_tags($new_instance["title"])
+            : "";
+        $instance["bitly_access_token"] = !empty(
+            $new_instance["bitly_access_token"]
+        )
+            ? strip_tags($new_instance["bitly_access_token"])
+            : "";
 
-        $instance["button_text"] = !empty($new_instance["button_text"]) 
-        ? strip_tags($new_instance["button_text"]) : "";
+        $instance["button_text"] = !empty($new_instance["button_text"])
+            ? strip_tags($new_instance["button_text"])
+            : "";
 
         return $instance;
     }
