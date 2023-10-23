@@ -46,7 +46,7 @@ if (!defined("NNROBOTS_QUOTABLE_TWEETS_PLUGIN_DIR")) {
 // Hooks / Filters
 add_action("init", ["NNRobots_Quotable_Tweets", "loadTextDomain"]);
 add_filter(
-    "plugin_action_links_" . plugin_basename(__FILE__), 
+    "plugin_action_links_" . plugin_basename(__FILE__),
     [
         "NNRobots_Quotable_Tweets",
         "settingsLink",
@@ -55,7 +55,8 @@ add_filter(
 
 // Register the Widget
 add_action(
-    "widgets_init", function () {
+    "widgets_init",
+    function () {
         register_widget("NNRobots_Quotable_Tweets");
     }
 );
